@@ -47,7 +47,7 @@ export default function Navbar({ setIsLoggedIn }) { // Accept setIsLoggedIn as a
               },
             }}
           >
-            Dashboard Panel
+            Smart - Park
           </Typography>
         </Link>
         <div>

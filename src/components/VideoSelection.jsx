@@ -16,24 +16,24 @@ const VideoSelection = () => {
     try {
       const response = await fetch(`http://localhost:8000/api/parking/select/${videoName}`);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
       const data = await response.json();
 
       if (data.available_spaces !== undefined) {
         setAvailableSpaces(data.available_spaces);
-        navigate(`/status`);
+        navigate(`/status`, { state: { availableSpaces: data.available_spaces } });
       } else {
         setError('Available spaces not found in response');
       }
     } catch (error) {
       console.error('Error fetching parking status:', error);
-      setError(error.message);
+      setError('Failed to fetch parking status. Please try again.');
     }
   };
 
   return (
-    <Box sx={{padding: 4, marginLeft: '240px',marginTop:'40px' }}>
+    <Box sx={{ padding: 4, marginLeft: '240px', marginTop: '40px' }}>
       <Typography variant="h4" gutterBottom>
         Select a Video
       </Typography>
@@ -41,7 +41,12 @@ const VideoSelection = () => {
         {videos.map((video) => (
           <Grid item xs={12} sm={6} md={4} key={video.id}>
             <Card onClick={() => handleVideoSelect(video.src)} sx={{ cursor: 'pointer', '&:hover': { boxShadow: 4 } }}>
-              <CardMedia component="img" image={video.thumbnail} alt={video.name} />
+              <CardMedia
+                component="img"
+                image={video.thumbnail || '/default_thumbnail.png'}
+                alt={video.name}
+                sx={{ height: 180, width: '100%', objectFit: 'cover' }} 
+              />
               <CardContent>
                 <Typography variant="h6">{video.name}</Typography>
               </CardContent>
