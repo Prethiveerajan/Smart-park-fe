@@ -124,7 +124,7 @@ const Register = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box sx={{ marginTop: 12, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Typography component="h1" variant="h5">
           Register
         </Typography>
