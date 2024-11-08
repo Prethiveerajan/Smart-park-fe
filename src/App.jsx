@@ -29,7 +29,6 @@
 // }
 
 // export default App;
-
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
@@ -40,13 +39,16 @@ import SidebarDrawer from './components/SidebarDrawer';
 import Navbar from './components/Navbar';
 import User from './components/User';
 import Login from './components/Login';
+import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('emailData'));
+  // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('emailData'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <>
-      <Navbar setIsLoggedIn={isLoggedIn} />
+      <Navbar setIsLoggedIn={setIsLoggedIn} />
       {isLoggedIn && <SidebarDrawer />} {/* Show sidebar only if logged in */}
       <Routes>
         <Route path="/" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
@@ -55,6 +57,9 @@ function App() {
         <Route path="/select-video" element={isLoggedIn ? <VideoSelection /> : <Navigate to="/login" />} />
         <Route path="/user" element={isLoggedIn ? <User /> : <Navigate to="/login" />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </>
   );
